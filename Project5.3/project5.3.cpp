@@ -4,39 +4,38 @@ using namespace std;
 double f(const double x);
 int main()
 {
-	double tp, tk, z;
+	double yp, yk, z;
 	int n;
-	cout << "tp = "; cin >> tp;
-	cout << "tk = "; cin >> tk;
+	cout << "yp = "; cin >> yp;
+	cout << "yk = "; cin >> yk;
 	cout << "n = "; cin >> n;
-	double dt = (tk - tp) / n;
-	double t = tp;
-	while (t <= tk)
+	double dy = (yk - yp) / n;
+	double y = yp;
+	while (y <= yk)
 	{
-		z = f(1+2*t)+f(f(1)+2*f(2*t))* f(f(1) + 2 * f(2 * t));
-		cout << t << " " << z << endl;
-		t += dt;
+		z = f(1+y*y)+f(f(1)+f(y*y)*f(y*y))* f(f(1) + f(y * y) * f(y * y));
+		cout << y << " " << z << endl;
+		y += dy;
 	}
 	return 0;
 }
 double f(const double x)
 {
 	if (abs(x) >= 1)
-		return (sin(x)*sin(x)+sin(x*x))/(1+cos(x)*cos(x));
+		return cos(x/2)/(1+sin(x)*sin(x));
 	else
 	{
 		double S = 0;
-		int n = 0;
+		int i = 0;
 		double a = 1;
 		S = a;
-		int c = (1 / (1 + x * x));
 		do
 		{
-			n++;
-			double R = pow(x,4*n+1)/tgamma(4*n+1);
+			i++;
+			double R = pow(x,3*i)/tgamma(2*i);
 			a *= R;
 			S += a;
-		} while (n<6);
-		return S*c;
+		} while (i<6);
+		return S;
 	}
 }
